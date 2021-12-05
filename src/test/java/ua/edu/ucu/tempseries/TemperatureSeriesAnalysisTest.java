@@ -320,4 +320,52 @@ public class TemperatureSeriesAnalysisTest {
 
     }
 
+    @Test
+    public void testSummaryStatisticsWithOneElementArray() {
+        double[] temperatureSeries = {-1.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expAvg = -1.0;
+        double expDev = 0.0;
+        double expMin = -1.0;
+        double expMax = -1.0;
+
+        double actualAvg = seriesAnalysis.summaryStatistics().getAvgTemp();
+        double actualDev = seriesAnalysis.summaryStatistics().getDevTemp();
+        double actualMin = seriesAnalysis.summaryStatistics().getMinTemp();
+        double actualMax = seriesAnalysis.summaryStatistics().getMaxTemp();
+
+        assertEquals(expAvg, actualAvg, 0.00001);
+        assertEquals(expDev, actualDev, 0.00001);
+        assertEquals(expMin, actualMin, 0.00001);
+        assertEquals(expMax, actualMax, 0.00001);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSummaryStatisticsWithEmptyArray() {
+        double[] temperatureSeries = {};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+
+        throw new IllegalArgumentException();
+    }
+
+    @Test
+    public void testSummaryStatistics() {
+        double[] temperatureSeries = {3.0, 4.0, -9.0, 1.0, 7.0, 98.0, -78.0};
+        TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
+        double expAvg = 3.71428;
+        double expDev = 15747.42857;
+        double expMin = -78.0;
+        double expMax = 98.0;
+
+        double actualAvg = seriesAnalysis.summaryStatistics().getAvgTemp();
+        double actualDev = seriesAnalysis.summaryStatistics().getDevTemp();
+        double actualMin = seriesAnalysis.summaryStatistics().getMinTemp();
+        double actualMax = seriesAnalysis.summaryStatistics().getMaxTemp();
+
+        assertEquals(expAvg, actualAvg, 0.00001);
+        assertEquals(expDev, actualDev, 0.00001);
+        assertEquals(expMin, actualMin, 0.00001);
+        assertEquals(expMax, actualMax, 0.00001);
+
+    }
 }
