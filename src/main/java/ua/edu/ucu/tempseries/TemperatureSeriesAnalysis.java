@@ -16,7 +16,8 @@ public class TemperatureSeriesAnalysis {
             if (el < -273) {
                 throw new InputMismatchException();
             } else {
-                this.temperatureSeries = Arrays.copyOf(temperatureSeries, temperatureSeries.length);
+                this.temperatureSeries = Arrays.copyOf
+                        (temperatureSeries, temperatureSeries.length);
             }
         }
     }
@@ -38,7 +39,7 @@ public class TemperatureSeriesAnalysis {
         double dev = 0.0;
         double aver = average();
         for (double el : this.temperatureSeries) {
-            dev += Math.pow((el - aver), 2);
+            dev += (el - aver)*(el - aver);
         }
         return dev;
     }
@@ -132,7 +133,8 @@ public class TemperatureSeriesAnalysis {
         if (temperatureSeries.length == 0) {
             temperatureSeries = temps;
         } else {
-            double[] temporary = new double[temperatureSeries.length + temps.length];
+            double[] temporary = new double[temperatureSeries.length +
+                    temps.length];
             for (int i = 0; i < temperatureSeries.length; i++) {
                 temporary[i] = temperatureSeries[i];
             }
