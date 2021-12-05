@@ -65,15 +65,11 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToZero() {
         double mood = Math.abs(temperatureSeries[0]);
         double closest = temperatureSeries[0];
-        if (this.temperatureSeries.length == 0) {
-            throw new IllegalArgumentException();
-        } else {
-            for (int i = 0; i < temperatureSeries.length; i++) {
-                double current = Math.abs(temperatureSeries[i]);
-                if (current < mood) {
-                    closest = temperatureSeries[i];
-                    mood = current;
-                }
+        for (double temp : temperatureSeries) {
+            double current = Math.abs(temp);
+            if (current < mood) {
+                closest = temp;
+                mood = current;
             }
         }
         return closest;
@@ -82,15 +78,11 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToValue(double tempValue) {
         double mood = Math.abs(temperatureSeries[0] - tempValue);
         double closest = temperatureSeries[0];
-        if (this.temperatureSeries.length == 0) {
-            throw new IllegalArgumentException();
-        } else {
-            for (int i = 0; i < temperatureSeries.length; i++) {
-                double current = Math.abs(temperatureSeries[i] - tempValue);
-                if (current < mood) {
-                    closest = temperatureSeries[i];
-                    mood = current;
-                }
+        for (double temp : temperatureSeries) {
+            double current = Math.abs(temp - tempValue);
+            if (current < mood) {
+                closest = temp;
+                mood = current;
             }
         }
         return closest;
@@ -99,8 +91,8 @@ public class TemperatureSeriesAnalysis {
     public double[] findTempsLessThen(double tempValue) {
         int counter = 0;
         Arrays.sort(temperatureSeries);
-        for (int i = 0; i < temperatureSeries.length; i++) {
-            if (temperatureSeries[i] < tempValue) {
+        for (double temp : temperatureSeries) {
+            if (temp < tempValue) {
                 counter += 1;
             }
         }
@@ -116,16 +108,16 @@ public class TemperatureSeriesAnalysis {
     public double[] findTempsGreaterThen(double tempValue) {
         int counter = 0;
         Arrays.sort(temperatureSeries);
-        for (int i = 0; i < temperatureSeries.length; i++) {
-            if (temperatureSeries[i] >= tempValue) {
+        for (double temp : temperatureSeries) {
+            if (temp >= tempValue) {
                 counter += 1;
             }
         }
         double[] result = new double[counter];
         int idx = 0;
-        for (int i = 0; i < temperatureSeries.length; i++) {
-            if (temperatureSeries[i] >= tempValue) {
-                result[idx] = temperatureSeries[i];
+        for (double temp : temperatureSeries) {
+            if (temp >= tempValue) {
+                result[idx] = temp;
                 idx += 1;
             }
         }
@@ -133,8 +125,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public TempSummaryStatistics summaryStatistics() {
-        TempSummaryStatistics sumStatistics = new TempSummaryStatistics(temperatureSeries);
-        return sumStatistics;
+        return new TempSummaryStatistics(temperatureSeries);
     }
 
     public double addTemps(double... temps) {
@@ -155,8 +146,8 @@ public class TemperatureSeriesAnalysis {
             temperatureSeries = temporary;
         }
         double suma = 0;
-        for (int i = 0; i < temperatureSeries.length; i++) {
-            suma += temperatureSeries[i];
+        for (double temp : temperatureSeries) {
+            suma += temp;
         }
         return suma;
     }
